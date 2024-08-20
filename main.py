@@ -21,11 +21,15 @@ def get_stock_prices(watchlist):
 st.title("Live Stock Price Monitor")
 st.write("Monitoring the following stocks: TATA Steel and IOCL")
 
+placeholder = st.empty()  # Create an empty placeholder to update stock prices
+
 while True:
     stock_prices = get_stock_prices(watchlist)
-    st.write("Stock Prices:")
-    for stock, price in stock_prices.items():
-        st.write(f"{stock}: ₹{price:.2f}")
-    st.write("-" * 40)
-    time.sleep(1)
-    st.experimental_rerun()  # Rerun the Streamlit app to update the prices
+    
+    with placeholder.container():
+        st.write("Stock Prices:")
+        for stock, price in stock_prices.items():
+            st.write(f"{stock}: ₹{price:.2f}")
+        st.write("-" * 40)
+    
+    time.sleep(10)  # Update every 10 seconds
