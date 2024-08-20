@@ -31,8 +31,13 @@ def get_stock_prices(portfolio):
         try:
             # Fetch the stock data
             ticker = yf.Ticker(stock)
-            # Extract the last traded price
-            prices[stock] = ticker.history(period='1d')['Close'].iloc[-1]
+            history = ticker.history(period='1d')
+            
+            if history.empty:  # Check if data is empty
+                prices[stock] = "Error: No data available"
+            else:
+                # Extract the last traded price
+                prices[stock] = history['Close'].iloc[-1]
         except Exception as e:
             prices[stock] = f"Error: {e}"
     return prices
@@ -54,7 +59,7 @@ while True:
                 current_price = stock_prices[stock]
                 buy_price = data['buy_price']
                 quantity = data['quantity']
-                if isinstance(current_price, str):
+                if isinstance(current_price, str):  # If there's an error fetching the price
                     st.write(f"{stock}: {current_price}")
                 else:
                     profit_or_loss = calculate_profit_or_loss(current_price, buy_price, quantity)
