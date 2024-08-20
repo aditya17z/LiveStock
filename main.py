@@ -30,7 +30,7 @@ def get_stock_prices(portfolio):
     for stock in portfolio:
         try:
             # Fetch the stock data
-            ticker = yf.TTicker(stock)
+            ticker = yf.Ticker(stock)
             # Extract the last traded price
             prices[stock] = ticker.history(period='1d')['Close'].iloc[-1]
         except Exception as e:
