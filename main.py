@@ -69,4 +69,4 @@ while True:
     else:
         st.write("Add stocks to your portfolio using the sidebar.")
 
-    time.sleep(10)  # Update every 10 seconds
+    time.sleep(2)  # Update every 10 seconds
